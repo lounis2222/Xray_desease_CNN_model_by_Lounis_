@@ -1,0 +1,16 @@
+# I will load my saved optimised model whith the best weight :
+model = tf.keras.models.load_model("/content/drive/MyDrive/MODEL_By_Lounis_improved_accuracy.h5")
+model.summary()
+
+# evaluate our model:
+
+
+Val_data = ImageDataGenerator(rescale=1./255,shear_range=0.2,zoom_range=0.2,fill_mode="nearest",horizontal_flip=True,zca_whitening=False)
+Validation_set = Val_data.flow_from_directory(r'/content/drive/MyDrive/chest_xray/val/',shuffle=True,batch_size=16,target_size = (300, 300),class_mode ='binary') # which we will use to improve our model accuracy and survey overfitting
+
+
+
+
+eval_result = model.evaluate_generator(Validation_set,steps= 16)
+print('loss rate at evaluation data :', eval_result[0])
+print('accuracy rate at evaluation data :', eval_result[1])
