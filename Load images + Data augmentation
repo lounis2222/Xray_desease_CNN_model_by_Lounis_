@@ -10,6 +10,9 @@ drive.mount('/content/drive')
 
 # First i unzipped my Newdata file on my google drive and mounted my colab at it 
 
+# I WILL DO THE DATA AUGMENTATION to augment our data by creating new images from our original ones by using scaling, zooming, ...
+#our original images have pixel values between 0 and 255, so we will also normalize them to have values between 0 and 1.
+
 Train_data = ImageDataGenerator(rescale=1./255,shear_range=0.2,zoom_range=0.2,fill_mode="nearest",horizontal_flip=True,zca_whitening=False)
 Test_data = ImageDataGenerator(rescale=1./255,shear_range=0.2,zoom_range=0.2,fill_mode="nearest",horizontal_flip=True,zca_whitening=False)
 Val_data = ImageDataGenerator(rescale=1./255,shear_range=0.2,zoom_range=0.2,fill_mode="nearest",horizontal_flip=True,zca_whitening=False)
