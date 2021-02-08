@@ -1,0 +1,19 @@
+# To check if tensorflow is available on this colab
+from __future__ import absolute_import, division, print_function, unicode_literals
+
+try:
+  # %tensorflow_version only exists in Colab.
+  %tensorflow_version 2.x
+except Exception:
+  pass
+import tensorflow as tf
+
+import matplotlib.pyplot as plt # we import matplotlib for all graphical representations, ...
+from keras.layers import MaxPooling2D,Convolution2D, Flatten, Dense  # with keras we will import all deep learning functions that we need to work with.
+# Flatten to flatten the images, MaxPooling2D to make the pooling operation and Convolutio2D to do the convolutional operation
+#from keras import regularizers  
+from keras.layers import Dropout #  which randomly disables a few neurons at each cycle to avoid overfitting 
+#from keras.callbacks import ModelCheckpoint 
+from keras.preprocessing.image import ImageDataGenerator # we import a function for all what is related to data augmentation for better training.
+from tensorflow.keras.callbacks import EarlyStopping # which is a function to help us to stop when we have the maximum validation accuracy depending on its parameters.
+import numpy as np
