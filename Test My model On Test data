@@ -1,0 +1,28 @@
+# Now i will do the prediction on my test datasets:
+Test_data = ImageDataGenerator(rescale=1./255,shear_range=0.2,zoom_range=0.2,fill_mode="nearest",horizontal_flip=True,zca_whitening=False)
+test_set = Test_data.flow_from_directory(r'/content/drive/MyDrive/chest_xray/test/',batch_size=39,shuffle=False,target_size = (300, 300),class_mode =None) # which we will use for testing or predecting
+
+# I need to reset my test_generator before calling the
+# predict_generator. This is important to get the output in order and i putted class_mode into none to return only images:
+
+test_set.reset()
+
+# prediction:
+prediction=model.predict_generator(test_set,
+steps=16,
+verbose=1)
+print(prediction)
+print(prediction.shape)
+
+
+classes=np.round(prediction) # round predictions to obtain two classes ( 0 (Normal) ou 1(pneumonia))
+print(classes)
+filenames=test_set.filenames # determine our filenames to assign for the classes 
+
+for i in range(0,prediction.shape[0]):  # do the prediction for all the images (0 to 623) ,    which means the 623 images
+    if classes[i] ==0:  # if the class of an image equals 0 
+      print("file",filenames[i],"    Prediction : NORMAL")
+    else: # in this case it equals 1
+      print("file",filenames[i],"    Prediction : PNEUMONIA")
+
+
