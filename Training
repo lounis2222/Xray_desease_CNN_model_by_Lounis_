@@ -1,0 +1,52 @@
+# Now i will compile my model and use adam optimisation function:
+Modell.compile(optimizer = 'adam',loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+
+#Create an EarlyStopping function for callback to stop after the lowest value of validation_loss :
+monitor = EarlyStopping(monitor='val_loss', min_delta=1e-3, patience=10, 
+        verbose=1, mode='auto', restore_best_weights=True) # so here when we have a validation_loss value, if after 10 epoches there is not another values smaller
+        #than it then the training process will stop and it will store the weights of the epoch which got that lowest validation_loss value.
+
+
+# Now i will train my model by doing 1000 epoches of 163 steps and 624 validation steps with our training data and correcting it with validation data, it also calls 
+#the callback function when it obtains the lowest value of validation_loss.
+plot_compare = Modell.fit_generator(training_set,      
+                    validation_data= Validation_set,
+                    callbacks=[monitor],
+                    verbose=1,
+                    epochs=1000,
+                    steps_per_epoch= 163,
+                    validation_steps= 16)
+
+
+
+#Plot the error vs epoch curve:
+plt.plot(plot_compare.history['loss'])
+plt.plot(plot_compare.history['val_loss'])
+plt.title('loss with number of epochs')
+plt.ylabel('Loss')
+plt.xlabel('Number of epoch')
+plt.legend(['loss', 'val_loss'])
+plt.show()
+
+
+
+#Report the accuracy vs epoch curve:
+plt.plot(plot_compare.history['accuracy'])
+plt.plot(plot_compare.history['val_accuracy'])
+plt.title('accuracy with number of epochs')
+plt.ylabel('accuracy')
+plt.xlabel('Number of epoch')
+plt.legend(['accuracy', 'val_accuracy'])
+plt.show()
+
+
+# SAVE THE MODEL into my google drive account:
+
+Modell.save("/content/drive/MyDrive/MODEL_By_Lounis_improved_accuracy.h5",)
+print("Saved model to disk")
+
+
+
+
+
