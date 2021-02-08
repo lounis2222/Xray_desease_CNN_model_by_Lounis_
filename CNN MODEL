@@ -1,0 +1,47 @@
+
+# we create a sequence type model, and in this sequence we can add as many operatons as we want. 
+Modell = tf.keras.models.Sequential() # we create a sequence type model, and in this sequence we can add as many operatons as we want. 
+
+# first we have to do the convolution :
+#We’ll add a convolutional 2D layer with 32 filters, a kernel of 3x3, the input size as our image dimensions, 300x300x3, and the activation as ReLU.
+Modell.add(Convolution2D(32, (3, 3), input_shape = (300, 300,3), activation = 'relu')) # tO make a 2D convolution on the ipnput images for the activating function we will use the relu function.
+# nOw we have to do the pulling : which consists in taking each channel of the image and reducing its size while keeping the most important information it contains.
+Modell.add(MaxPooling2D(pool_size = (2, 2))) # we’ll add a max pooling layer that halves the image dimension.
+
+
+
+# Then we will do a second convolution and this time with zero padding to not loose the main image information :
+
+#We’ll add a convolutional 2D layer with 64 filters, a kernel of 3x3, the input size as our image dimensions after polling, and the activation as ReLU.
+Modell.add(Convolution2D(64, (3, 3), activation = 'relu',padding='same'))
+# nOw we have to do the Maxpulling to keep the most important information from our data and reduce its size at the same time:
+Modell.add(MaxPooling2D(pool_size = (2, 2)))
+
+
+#We’ll add a convolutional 2D layer with 128 filters, a kernel of 3x3, the input size as our image dimensions after polling, and the activation as ReLU.
+Modell.add(Convolution2D(128, (3, 3), activation = 'relu',padding='same'))
+# nOw we also have to do the Maxpulling to keep the most important information from our data and reduce its size at the same time:
+Modell.add(MaxPooling2D(pool_size = (2, 2)))
+
+
+
+# Now we have to flatten the results to feed into a CNN
+Modell.add(Flatten())
+# Now for the full connection we will create a 128 neuron hidden layer with the activation function Relu
+Modell.add(Dense(units = 500, activation = 'relu'))
+# we will add a droupout layer to avoid overfitting and this desables certain layers during the process. 
+Modell.add(Dropout(0.5))
+
+
+# Now for the full connection we will create another 128 neuron hidden layer with the activation function Relu
+Modell.add(Dense(units = 500, activation = 'relu'))
+# we will add a droupout layer to avoid overfitting and this desables certain layers during the process. 
+Modell.add(Dropout(0.5))
+
+
+# Now we will add an output layer which will do the binary classification we will use in this case the activation function sigmoid function:
+# we can also use the softmax function:
+Modell.add(Dense(units = 1 , activation = 'sigmoid')) 
+
+Modell.summary() # to list the information about our model ( its layers, dimensions, ...)
+
