@@ -1,0 +1,23 @@
+#The goal of this Project is to propose a CNN for binary classification if two two types of xray images, pneumonia case and normal case
+
+!nvidia-smi  # see which type of graphic card we use in collab (GPU)
+
+# Mount into my google drive where i stored my datasets
+from google.colab import drive
+drive.mount('/content/drive')
+
+#From scratch I wukk design a shallow CNN composed of a set of conv, pool and FC layers
+
+# First i unzipped my Newdata file on my google drive and mounted my colab at it 
+
+Train_data = ImageDataGenerator(rescale=1./255,shear_range=0.2,zoom_range=0.2,fill_mode="nearest",horizontal_flip=True,zca_whitening=False)
+Test_data = ImageDataGenerator(rescale=1./255,shear_range=0.2,zoom_range=0.2,fill_mode="nearest",horizontal_flip=True,zca_whitening=False)
+Val_data = ImageDataGenerator(rescale=1./255,shear_range=0.2,zoom_range=0.2,fill_mode="nearest",horizontal_flip=True,zca_whitening=False)
+
+# Load our datasets from my google drive folder by specifying its directory 
+
+# To generate a tf.data.Dataset from image files in a directory we do:
+
+training_set = Train_data.flow_from_directory(r'/content/drive/MyDrive/chest_xray/train/',target_size=(300, 300),class_mode='binary') # which we will use for training
+test_set = Test_data.flow_from_directory(r'/content/drive/MyDrive/chest_xray/test/',target_size = (300, 300),class_mode ='binary') # which we will use for testing or predecting
+Validation_set = Val_data.flow_from_directory(r'/content/drive/MyDrive/chest_xray/val/',target_size = (300, 300),class_mode ='binary') # which we will use to improve our model accuracy and survey overfitting
