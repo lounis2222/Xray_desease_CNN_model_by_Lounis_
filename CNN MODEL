@@ -27,13 +27,14 @@ Modell.add(MaxPooling2D(pool_size = (2, 2)))
 
 # Now we have to flatten the results to feed into a CNN
 Modell.add(Flatten())
-# Now for the full connection we will create a 128 neuron hidden layer with the activation function Relu
+
+# Now for the full connection we will create a 500 neuron hidden layer with the activation function Relu
 Modell.add(Dense(units = 500, activation = 'relu'))
 # we will add a droupout layer to avoid overfitting and this desables certain layers during the process. 
 Modell.add(Dropout(0.5))
 
 
-# Now for the full connection we will create another 128 neuron hidden layer with the activation function Relu
+# Now for the full connection we will create another 500 neuron hidden layer with the activation function Relu
 Modell.add(Dense(units = 500, activation = 'relu'))
 # we will add a droupout layer to avoid overfitting and this desables certain layers during the process. 
 Modell.add(Dropout(0.5))
