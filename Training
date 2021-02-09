@@ -15,7 +15,7 @@ plot_compare = Modell.fit_generator(training_set,
                     callbacks=[monitor],
                     verbose=1,
                     epochs=1000,
-                    steps_per_epoch= 163,
+                    steps_per_epoch= 43,
                     validation_steps= 16)
 
 
